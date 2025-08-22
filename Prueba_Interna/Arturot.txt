@@ -1,0 +1,4 @@
+Hola, este es un archivo de prueba llamado Arturot.txt.
+Puedes escribir 
+cualquier cosa aquí para probar el 
+funcionamiento del archivo.
