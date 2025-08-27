@@ -1,64 +1,38 @@
-# README
 
-## Descripción general
+# Proyecto: Clasificador y Organizador de Archivos
 
-Este programa en C++ utiliza la biblioteca estándar y la de filesystem para interactuar con el sistema de archivos. Permite al usuario ingresar la ruta de un directorio, verifica su existencia, crea una estructura de carpetas de salida y recorre todos los archivos y subdirectorios, mostrando su contenido si son archivos.
+## Descripción General
+Este programa en C++ recorre un directorio y sus subdirectorios, lee el contenido de cada archivo y los clasifica según su tipo (programa, driver, dll, pista o basura). Los archivos se mueven y renombran en una estructura de carpetas llamada `Output`, donde quedan organizados por tipo.
 
----
+## ¿Cómo funciona el código?
+- El usuario indica la ruta del directorio a analizar.
+- El programa verifica si la carpeta `Output` existe; si no, la crea junto con sus subcarpetas.
+- Recorre todos los archivos del directorio y subdirectorios:
+	- Lee el contenido de cada archivo.
+	- Determina el tipo de archivo según palabras clave o extensión.
+	- Mueve y renombra el archivo a la carpeta correspondiente en `Output`.
+	- Si no coincide con ningún tipo, lo mueve a la carpeta `Basura`.
+- Al finalizar, muestra un resumen con la cantidad de archivos procesados de cada tipo.
 
-## Explicación de las funciones
-
-### Lectura(const fs::path& ruta)
-- **Propósito:** Lee y muestra el contenido de un archivo de texto.
-- **Funcionamiento:**
-  - Recibe la ruta de un archivo.
-  - Abre el archivo usando `ifstream`.
-  - Si no se puede abrir, muestra un error.
-  - Si se abre correctamente, lee línea por línea y muestra el contenido en consola.
-
-### main()
-- **Propósito:** Es el punto de entrada del programa y gestiona el flujo principal.
-- **Funcionamiento:**
-  1. Solicita al usuario la ruta de un directorio.
-  2. Verifica si el directorio existe:
-     - Si existe, continúa.
-     - Si no existe, termina el programa.
-  3. Verifica si la carpeta `Output` existe:
-     - Si no existe, la crea junto con varias subcarpetas (`System`, `Drivers`, `Programs`, `Dynamic Link-Library`, `Pista`, `Basura`).
-  4. Recorre el directorio y sus subdirectorios usando `recursive_directory_iterator`:
-     - Si encuentra un archivo, muestra su nombre y llama a la función `Lectura` para mostrar su contenido.
-     - Si encuentra un directorio, muestra su nombre.
-
----
-
-## Flujo interno
-1. El usuario ingresa la ruta de un directorio.
-2. El programa verifica la existencia del directorio y de la carpeta de salida.
-3. Si es necesario, crea la estructura de carpetas de salida.
-4. Recorre todos los archivos y subdirectorios del directorio indicado.
-5. Muestra el nombre y contenido de cada archivo, y el nombre de cada subdirectorio.
-
----
+## Instrucciones de Uso
+1. **Coloca la ruta del directorio a analizar en el archivo `input.txt`**
+	 - Ejemplo de contenido de `input.txt`:
+		 ```
+		 archivos_de_prueba
+		 ```
+2. **Abre una terminal en la carpeta del proyecto.**
+3. **Ejecuta el siguiente comando:**
+	 ```bash
+	 make run
+	 ```
+	 Esto compilará y ejecutará el programa, leyendo la ruta desde `input.txt`.
+4. **El programa creará una carpeta `Output`** en la raíz del proyecto, donde se guardarán y organizarán todos los archivos procesados.
 
 ## Requisitos
 - Compilador C++17 o superior (por el uso de `<filesystem>`).
-
-## Ejecución
-1. Compila el archivo:
-   ```bash
-   g++ -std=c++17 lab1.cpp -o programa
-   ```
-2. Ejecuta el programa:
-   ```bash
-   ./programa
-   ```
-3. Ingresa la ruta del directorio que deseas analizar cuando el programa lo solicite.
-
----
+- Sistema operativo Linux recomendado.
 
 ## Notas
-- El programa solo muestra el contenido de archivos de texto.
-- La estructura de carpetas `Output` se crea en el directorio actual si no existe.
-
----
-
+- Los archivos originales se eliminan después de ser movidos.
+- Los archivos se renombran según su tipo y contador.
+- Si tienes dudas, revisa el código fuente o consulta a tu compañero.
